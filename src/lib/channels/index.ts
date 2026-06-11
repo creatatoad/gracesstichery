@@ -33,7 +33,7 @@ export async function syncProduct(
         label: adapter.label,
         configured: false,
         ok: false,
-        error: "Not configured — add API credentials in .env.local",
+        error: "Not configured. Add API credentials in .env.local",
       });
       continue;
     }

@@ -102,7 +102,7 @@ export async function generateProductCopy(input: GenerateInput): Promise<Generat
     max_tokens: 16000,
     betas: ["structured-outputs-2025-11-13"],
     system:
-      "You write product copy for Grace's Stitchery, a small business making custom machine-embroidered apparel (hoodies, tees, hats, totes, baby items, jackets — whatever a customer wants). Voice: warm, confident, handmade-but-professional. Emphasize durability of real embroidery vs. vinyl prints, made-to-order personalization, and gifting. Never invent specific materials, sizes, or turnaround times unless they appear in the maker's notes. If a product photo is provided, describe what is actually visible in it.",
+      "You write product copy for Grace's Stitchery, a small business making custom machine-embroidered apparel (hoodies, tees, hats, totes, baby items, jackets, whatever a customer wants). Voice: warm, confident, handmade-but-professional. Emphasize durability of real embroidery vs. vinyl prints, made-to-order personalization, and gifting. Never invent specific materials, sizes, or turnaround times unless they appear in the maker's notes. If a product photo is provided, describe what is actually visible in it. Style rule: never use em dashes or en dashes anywhere in the copy; use commas, colons, or periods instead.",
     output_format: {
       type: "json_schema",
       schema: COPY_SCHEMA as unknown as Record<string, unknown>,
@@ -115,7 +115,14 @@ export async function generateProductCopy(input: GenerateInput): Promise<Generat
   const text = response.content.find((b) => b.type === "text")?.text;
   if (!text) return templateCopy(input);
   const parsed = JSON.parse(text) as GeneratedCopy;
-  return { ...parsed, tags: parsed.tags.map((t) => t.trim().toLowerCase()) };
+  // Belt and suspenders: strip any em/en dashes the model slips in.
+  const clean = (s: string) => s.replace(/\s*—\s*|\s*–\s*/g, ", ").replace(/, ,/g, ",");
+  return {
+    description: clean(parsed.description),
+    seoTitle: clean(parsed.seoTitle),
+    seoDescription: clean(parsed.seoDescription),
+    tags: parsed.tags.map((t) => clean(t).trim().toLowerCase()),
+  };
 }
 
 function templateCopy(input: GenerateInput): GeneratedCopy {
@@ -124,13 +131,13 @@ function templateCopy(input: GenerateInput): GeneratedCopy {
   const notes = input.notes?.trim();
   return {
     description: [
-      `Meet the ${name} — made to order in our studio with dense, hand-finished machine embroidery that outlasts any printed design. ${
+      `Meet the ${name}, made to order in our studio with dense, hand-finished machine embroidery that outlasts any printed design. ${
         notes ? notes + " " : ""
       }Every piece is stitched one at a time, so you choose the thread colors, placement, and personalization.`,
       `Real embroidery means raised, tactile stitching that won't crack, fade, or peel in the wash. Whether it's a gift or a treat for yourself, this one's made just for you.`,
-      `Made to order — secure yours today and we'll start stitching.`,
+      `Made to order. Secure yours today and we'll start stitching.`,
     ].join("\n\n"),
-    seoTitle: `${name} — Custom Embroidery | Grace's Stitchery`.slice(0, 60),
+    seoTitle: `${name}, Custom Embroidery | Grace's Stitchery`.slice(0, 60),
     seoDescription:
       `Custom embroidered ${name.toLowerCase()} made to order by Grace's Stitchery. Choose your colors & personalization. Durable stitching, perfect for gifts.`.slice(
         0,

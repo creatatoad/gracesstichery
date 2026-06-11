@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <rect width="800" height="800" fill="#F3EDE3"/>
+  <rect x="40" y="40" width="720" height="720" fill="none" stroke="#C9A227" stroke-width="3" stroke-dasharray="10 12" opacity="0.5"/>
+  <path d="M270 230 q130 -60 260 0 l70 60 -50 60 -40 -30 v290 q-110 30 -220 0 v-290 l-40 30 -50 -60 z" fill="#7D8C6E" opacity="0.95"/>
+  <path d="M310 380 q25 -35 45 0 q15 28 35 0 q18 -30 38 0 q16 26 36 -4 q12 -20 26 4" stroke="#F3EDE3" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M330 440 q20 -25 38 0 q16 22 34 0 q18 -24 36 0 q14 20 32 -2" stroke="#F3EDE3" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.85"/>
+  <text x="400" y="700" text-anchor="middle" font-family="Georgia, serif" font-size="34" font-style="italic" fill="#33302B">Handwriting Keepsake</text>
+</svg>

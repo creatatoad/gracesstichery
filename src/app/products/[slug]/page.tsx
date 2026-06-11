@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AddToCart from "@/components/AddToCart";
 import ProductCard from "@/components/ProductCard";
+import { categoryLabel, getCategory } from "@/lib/categories";
 import { db } from "@/lib/db";
 import { formatPrice } from "@/lib/money";
 
@@ -40,14 +41,40 @@ export default async function ProductPage({ params }: Props) {
   const product = await getProduct(slug);
   if (!product) notFound();
 
-  const related = await db.product.findMany({
+  // Prefer pieces from the same category, then best sellers.
+  const candidates = await db.product.findMany({
     where: { status: "active", id: { not: product.id } },
     include: { images: { orderBy: { position: "asc" } } },
     orderBy: { featured: "desc" },
-    take: 3,
+    take: 12,
   });
+  const related = [...candidates]
+    .sort(
+      (a, b) =>
+        Number(b.category === product.category) - Number(a.category === product.category),
+    )
+    .slice(0, 3);
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Shop", item: `${siteUrl}/shop` },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: categoryLabel(product.category),
+        item: `${siteUrl}/shop/${product.category}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product.name,
+        item: `${siteUrl}/products/${product.slug}`,
+      },
+    ],
+  };
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -72,9 +99,20 @@ export default async function ProductPage({ params }: Props) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        />
         <nav className="mb-6 text-sm text-ink-soft">
           <Link href="/shop" className="hover:text-berry">Shop</Link> /{" "}
-          <span className="capitalize">{product.category}</span> / {product.name}
+          {getCategory(product.category) ? (
+            <Link href={`/shop/${product.category}`} className="hover:text-berry">
+              {categoryLabel(product.category)}
+            </Link>
+          ) : (
+            <span className="capitalize">{product.category}</span>
+          )}{" "}
+          / {product.name}
         </nav>
 
         <div className="grid gap-10 lg:grid-cols-2">
@@ -118,9 +156,11 @@ export default async function ProductPage({ params }: Props) {
             </div>
 
             <ul className="mt-8 space-y-2 rounded-2xl bg-parchment p-5 text-sm">
-              <li>✶ <strong>Made to order</strong> — stitched after you purchase, ships in 3–5 days</li>
-              <li>✶ <strong>Real embroidery</strong> — raised thread, never cracks or peels</li>
-              <li>✶ <strong>Guaranteed for life</strong> — if stitching fails, we fix it free</li>
+              <li>✶ <strong>Made to order:</strong> stitched after you purchase, ships in 3 to 5 days</li>
+              <li>✶ <strong>Real embroidery:</strong> raised thread that never cracks or peels</li>
+              <li>✶ <strong>Guaranteed for life:</strong> if stitching ever fails, we fix it free</li>
+              <li>✶ <strong>Tracked shipping</strong> on every order · <Link href="/shipping" className="font-semibold text-berry hover:underline">details</Link></li>
+              <li>✶ <strong>Easy care:</strong> machine washable · <Link href="/care" className="font-semibold text-berry hover:underline">care guide</Link></li>
               <li>
                 ✶ Want changes (colors, names, placement)?{" "}
                 <Link href="/custom" className="font-semibold text-berry hover:underline">

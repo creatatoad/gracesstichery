@@ -4,7 +4,7 @@ import { ADMIN_COOKIE, checkPassword, createSessionToken } from "@/lib/auth";
 export async function POST(req: NextRequest) {
   if (!process.env.ADMIN_PASSWORD) {
     return NextResponse.json(
-      { error: "Admin is not set up yet — set ADMIN_PASSWORD in .env.local" },
+      { error: "Admin is not set up yet. Set ADMIN_PASSWORD in .env.local" },
       { status: 503 },
     );
   }

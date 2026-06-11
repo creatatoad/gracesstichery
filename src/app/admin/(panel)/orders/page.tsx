@@ -38,7 +38,7 @@ export default async function AdminOrdersPage() {
                 <tr key={o.id}>
                   <td className="p-3 text-ink-soft">{o.createdAt.toLocaleDateString()}</td>
                   <td className="p-3">
-                    {o.name || "—"}
+                    {o.name || "·"}
                     {o.email && <p className="text-xs text-ink-soft">{o.email}</p>}
                   </td>
                   <td className="p-3 text-ink-soft">

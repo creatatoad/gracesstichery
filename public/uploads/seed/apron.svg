@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <rect width="800" height="800" fill="#F3EDE3"/>
+  <rect x="40" y="40" width="720" height="720" fill="none" stroke="#C9A227" stroke-width="3" stroke-dasharray="10 12" opacity="0.5"/>
+  <path d="M340 200 h120 v90 l80 50 v270 q-140 36 -280 0 v-270 l80 -50 z" fill="#E8DECF" stroke="#C9B89B" stroke-width="4"/>
+  <path d="M340 215 q-90 30 -85 90 M460 215 q90 30 85 90" stroke="#C9B89B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path d="M355 470 q20 -40 45 -5 q22 -38 45 0 q20 -36 45 5" stroke="#9C3D54" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <circle cx="400" cy="395" r="9" fill="#7D8C6E"/><circle cx="365" cy="408" r="7" fill="#C9A227"/><circle cx="435" cy="408" r="7" fill="#C9A227"/>
+  <text x="400" y="700" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-style="italic" fill="#33302B">Custom Linen Apron</text>
+</svg>

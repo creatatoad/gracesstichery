@@ -62,7 +62,7 @@ export default function ChannelSync({
       <h2 className="font-semibold">Sell everywhere</h2>
       <p className="mt-1 text-sm text-ink-soft">
         Push this product to your other shops in one click. Channels without credentials are
-        listed so you know what&rsquo;s available — add keys in <code>.env.local</code> to
+        listed so you know what&rsquo;s available. Add keys in <code>.env.local</code> to
         enable them.
       </p>
 
@@ -116,7 +116,7 @@ export default function ChannelSync({
           {results.map((r) => (
             <li key={r.channel} className={r.ok ? "text-sage" : "text-berry"}>
               {r.ok ? "✓" : "✕"} {r.label}
-              {r.ok ? (r.externalId ? ` — listing #${r.externalId}` : "") : ` — ${r.error}`}
+              {r.ok ? (r.externalId ? ` · listing #${r.externalId}` : "") : ` · ${r.error}`}
             </li>
           ))}
         </ul>
