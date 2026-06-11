@@ -14,3 +14,6 @@ public/uploads/*
 !public/uploads/seed/
 
 .DS_Store
+
+# stray local sqlite files from older versions
+prisma/dev.db*
