@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <rect width="800" height="800" fill="#F3EDE3"/>
+  <rect x="40" y="40" width="720" height="720" fill="none" stroke="#9C3D54" stroke-width="3" stroke-dasharray="10 12" opacity="0.5"/>
+  <rect x="270" y="320" width="260" height="240" rx="8" fill="#E8DFCF"/><path d="M320 320 q80 -110 160 0" stroke="#9C3D54" stroke-width="10" fill="none"/><g stroke="#9C3D54" stroke-width="4" fill="none" stroke-linecap="round"><path d="M340 470 q30 -50 120 -40"/><path d="M350 430 q40 -25 90 -5" opacity="0.7"/></g>
+  <text x="400" y="700" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-style="italic" fill="#33302B">Canvas Tote</text>
+</svg>

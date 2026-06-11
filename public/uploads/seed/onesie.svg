@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <rect width="800" height="800" fill="#F3EDE3"/>
+  <rect x="40" y="40" width="720" height="720" fill="none" stroke="#7D8C6E" stroke-width="3" stroke-dasharray="10 12" opacity="0.5"/>
+  <path d="M400 220 l-95 35 -35 70 55 35 15 -25 v160 l-45 70 60 25 45 -65 45 65 60 -25 -45 -70 v-160 l15 25 55 -35 -35 -70 z" fill="#E8DFCF"/><text x="400" y="420" text-anchor="middle" font-family="Georgia, serif" font-size="44" font-style="italic" fill="#7D8C6E">emmy</text>
+  <text x="400" y="700" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-style="italic" fill="#33302B">Baby Name Onesie</text>
+</svg>

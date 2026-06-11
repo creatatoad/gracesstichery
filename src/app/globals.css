@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #faf6f0;
+  --color-parchment: #f3ede3;
+  --color-ink: #33302b;
+  --color-ink-soft: #6b6358;
+  --color-berry: #9c3d54;
+  --color-berry-deep: #7e2f43;
+  --color-sage: #7d8c6e;
+  --color-gold: #c9a227;
+
+  --font-display: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --font-body: "Avenir Next", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Hand-stitched divider used between sections */
+.stitch-divider {
+  height: 0;
+  border-top: 2px dashed color-mix(in srgb, var(--color-berry) 45%, transparent);
+}
+
+.btn-primary {
+  @apply inline-block rounded-full bg-berry px-7 py-3 font-semibold text-cream transition hover:bg-berry-deep;
+}
+
+.btn-secondary {
+  @apply inline-block rounded-full border-2 border-ink px-7 py-3 font-semibold text-ink transition hover:bg-ink hover:text-cream;
+}
+
+.input {
+  @apply w-full rounded-lg border border-ink/20 bg-white px-3 py-2 text-ink outline-none focus:border-berry;
+}
+
+.label {
+  @apply mb-1 block text-sm font-semibold text-ink-soft;
+}

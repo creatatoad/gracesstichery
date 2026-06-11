@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <rect width="800" height="800" fill="#F3EDE3"/>
+  <rect x="40" y="40" width="720" height="720" fill="none" stroke="#7D8C6E" stroke-width="3" stroke-dasharray="10 12" opacity="0.5"/>
+  <path d="M400 190 l-120 45 -50 80 70 45 20 -30 v250 h160 v-250 l20 30 70 -45 -50 -80 z" fill="#7D8C6E" opacity="0.85"/><g stroke="#F3EDE3" stroke-width="4" fill="none" stroke-linecap="round"><path d="M380 470 q-5 -60 -20 -90"/><path d="M400 470 q0 -70 10 -100"/><path d="M425 470 q8 -55 28 -80"/></g><g fill="#F3EDE3"><circle cx="358" cy="372" r="10"/><circle cx="412" cy="362" r="10"/><circle cx="456" cy="382" r="10"/></g>
+  <text x="400" y="700" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-style="italic" fill="#33302B">Wildflower Tee</text>
+</svg>
