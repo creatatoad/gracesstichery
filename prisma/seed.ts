@@ -96,6 +96,11 @@ const products = [
 ];
 
 async function main() {
+  const existing = await db.product.count();
+  if (existing > 0) {
+    console.log(`Database already has ${existing} products — skipping seed.`);
+    return;
+  }
   for (const p of products) {
     const { image, alt, ...data } = p;
     await db.product.upsert({

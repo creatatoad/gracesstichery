@@ -1,13 +1,13 @@
 // Grace's Stitchery — data model
-// SQLite for zero-config local/dev use. For production Postgres, change
-// provider to "postgresql" and update DATABASE_URL — the schema is portable.
+// Postgres (works locally and on any host — Neon, Vercel, Railway, Supabase…).
+// Set DATABASE_URL in .env locally; hosting providers set it for you.
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
