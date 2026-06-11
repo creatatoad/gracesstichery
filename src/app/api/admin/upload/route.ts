@@ -29,6 +29,21 @@ export async function POST(req: NextRequest) {
   }
 
   const name = `${Date.now().toString(36)}-${randomBytes(4).toString("hex")}${ext}`;
+
+  // On Vercel the filesystem is read-only — store images in Vercel Blob.
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    const { put } = await import("@vercel/blob");
+    const blob = await put(`uploads/${name}`, file, { access: "public" });
+    return NextResponse.json({ url: blob.url });
+  }
+
+  if (process.env.VERCEL) {
+    return NextResponse.json(
+      { error: "Image storage isn't set up: in Vercel go to Storage → Create Database → Blob, connect it to this project, and redeploy." },
+      { status: 503 },
+    );
+  }
+
   const dir = path.join(process.cwd(), "public", "uploads");
   await mkdir(dir, { recursive: true });
   await writeFile(path.join(dir, name), Buffer.from(await file.arrayBuffer()));

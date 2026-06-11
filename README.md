@@ -30,19 +30,19 @@ Anthropic API.
 
 ```bash
 npm install
-npm run dev       # http://localhost:3000
+cp .env.example .env   # then fill in DATABASE_URL and ADMIN_PASSWORD
+npm run dev            # http://localhost:3000
 ```
 
-`npm run dev` (and `npm run build` / `npm start`) automatically create the SQLite
-database and seed the sample products on first run, so a fresh clone just works.
-If you ever see `Error code 14: Unable to open the database file`, the db file is
-missing — run `npm run setup` (or just restart with `npm run dev`) to recreate it.
-
-Then create `.env.local` (see `.env.example` for everything) and set at minimum:
+Two variables are required:
 
 ```bash
-ADMIN_PASSWORD="choose-a-long-password"   # unlocks /admin
+DATABASE_URL="postgresql://…"             # any Postgres — free one at https://neon.tech
+ADMIN_PASSWORD="choose-a-long-password"   # this IS the /admin login (no username)
 ```
+
+`npm run dev` and `npm run build` automatically create the database tables and
+seed six starter products if the store is empty — no separate setup step.
 
 Optional but recommended:
 
@@ -78,11 +78,10 @@ The real brand artwork lives in `public/` under URL-safe names:
 
 ## Architecture notes
 
-- **Database**: SQLite via Prisma for zero-config dev. For production Postgres, change the
-  `provider` in `prisma/schema.prisma` and `DATABASE_URL`, then `npx prisma db push`.
-- **Images** are stored in `public/uploads/`. On serverless hosts (Vercel), swap
-  `src/app/api/admin/upload/route.ts` to write to blob storage (Vercel Blob / S3) — it's
-  the only file that touches disk.
+- **Database**: Postgres via Prisma. `scripts/db.mjs` (run automatically before
+  dev/build) pushes the schema and seeds starter products when the store is empty.
+- **Images**: uploads go to Vercel Blob when `BLOB_READ_WRITE_TOKEN` is set (Vercel
+  sets it when you connect a Blob store), otherwise to `public/uploads/` on disk.
 - **Channel adapters** live in `src/lib/channels/`. Each implements a tiny
   `ChannelAdapter` interface (`isConfigured` / `publish` / `update`); add a new marketplace
   by dropping in one file and registering it in `index.ts`. Results are recorded per
@@ -92,14 +91,17 @@ The real brand artwork lives in `public/` under URL-safe names:
   adding a webhook handler for `checkout.session.completed` (order ids are stored in
   session metadata).
 
-## Deploying
+## Deploying to Vercel
 
-Any Node host works (Railway, Render, Fly.io, a VPS):
+1. **Database** — in your Vercel project: **Storage → Create Database → Neon**
+   (free tier). Connect it to the project; this sets `DATABASE_URL` for you.
+2. **Images** — **Storage → Create Database → Blob** and connect it; this sets
+   `BLOB_READ_WRITE_TOKEN` so product photo uploads work.
+3. **Admin login** — **Settings → Environment Variables**: add `ADMIN_PASSWORD`
+   (this is the password for `/admin` — there is no username) and optionally the
+   Stripe / Anthropic / Etsy / TikTok keys from the table above.
+4. **Redeploy** (Deployments → ⋯ → Redeploy). The build pushes the schema to the
+   database and seeds starter products automatically.
 
-```bash
-npm run build   # creates/migrates the db, generates the Prisma client, builds Next
-npm start
-```
-
-Run `npx tsx prisma/seed.ts` once on first deploy if you want the sample products.
-For Vercel, switch to Postgres + blob storage as noted above.
+Any other Node host (Railway, Render, Fly.io, a VPS) works the same way:
+set the env vars, then `npm run build && npm start`.

@@ -4,13 +4,10 @@ out/
 *.tsbuildinfo
 next-env.d.ts
 
-# local secrets (DATABASE_URL lives in .env and is committed; secrets go in .env.local)
+# local secrets — DATABASE_URL and friends live here, never commit them
+.env
 .env.local
 .env*.local
-
-# sqlite database
-prisma/dev.db
-prisma/dev.db-journal
 
 # user-uploaded product images (seed images are committed)
 public/uploads/*

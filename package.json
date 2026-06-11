@@ -4,20 +4,21 @@
   "private": true,
   "description": "E-commerce site for Grace's Stitchery — custom embroidered apparel",
   "scripts": {
-    "predev": "prisma db push && tsx prisma/seed.ts",
+    "predev": "node scripts/db.mjs --seed",
     "dev": "next dev",
-    "prebuild": "prisma db push",
+    "prebuild": "node scripts/db.mjs --seed",
     "build": "next build",
-    "prestart": "prisma db push",
     "start": "next start",
     "lint": "next lint",
-    "db:push": "prisma db push",
+    "postinstall": "prisma generate",
+    "db:push": "node scripts/db.mjs",
     "db:seed": "tsx prisma/seed.ts",
-    "setup": "prisma generate && prisma db push && tsx prisma/seed.ts"
+    "setup": "node scripts/db.mjs --seed"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",
     "@prisma/client": "^6.16.0",
+    "@vercel/blob": "^2.4.0",
     "next": "^15.5.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
