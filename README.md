@@ -14,6 +14,17 @@ Anthropic API.
   email-invoice flow when Stripe isn't configured yet, so the site sells from day one)
 - SEO throughout: per-product titles/meta/keywords, Open Graph, Product JSON-LD
   structured data, `sitemap.xml`, `robots.txt`
+- Upsells in smart places: "Make it a matching set" add-ons on product pages,
+  "Complete the gift" suggestions in the cart, cross-sells after checkout
+- **AI shop assistant** (chat bubble, bottom right): answers product, shipping,
+  and policy questions with the live catalog as context. Strictly scoped to
+  store topics and hard rate-limited (8/min, 30/hr, 60/day per visitor, plus a
+  global daily cap and small response sizes) so it can't be abused or run up
+  API costs. Without `ANTHROPIC_API_KEY` it politely points to the FAQ/contact
+  pages.
+- In-depth custom order form: item type, quantity, sizes, placement, thread
+  colors, deadline, budget, and inspiration links, all delivered to the admin
+  inbox
 
 **Admin (`/admin`, password-protected)**
 - Dashboard: revenue, orders, custom requests, live channel listings

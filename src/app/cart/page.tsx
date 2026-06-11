@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCart } from "@/components/cart";
+import CartUpsells from "@/components/UpsellRow";
 import { formatPrice } from "@/lib/money";
 
 export default function CartPage() {
@@ -106,6 +107,8 @@ export default function CartPage() {
                 </li>
               ))}
             </ul>
+
+            <CartUpsells title="Complete the gift" />
 
             <div className="mt-6 flex items-center justify-between border-t-2 border-ink pt-4">
               <span className="text-lg font-semibold">Total</span>
