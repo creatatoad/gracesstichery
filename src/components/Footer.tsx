@@ -1,11 +1,12 @@
 import Link from "next/link";
+import Logo from "./Logo";
 
 export default function Footer() {
   return (
     <footer className="mt-20 border-t border-ink/10 bg-parchment">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-3">
         <div>
-          <h3 className="text-xl italic">Grace&rsquo;s Stitchery</h3>
+          <Logo className="h-20 w-auto" />
           <p className="mt-2 text-sm text-ink-soft">
             Custom machine embroidery on whatever you can wear (and a few things you
             can&rsquo;t). Every piece made to order, one at a time.

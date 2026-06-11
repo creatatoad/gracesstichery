@@ -15,9 +15,9 @@ export default function Header() {
   const { count } = useCart();
   return (
     <header className="sticky top-0 z-40 border-b border-ink/10 bg-cream/95 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2">
         <Link href="/" aria-label="Grace's Stitchery home">
-          <Logo className="h-10 sm:h-12" />
+          <Logo className="h-14 w-auto sm:h-16" />
         </Link>
         <nav className="hidden items-center gap-6 font-medium sm:flex">
           {links.map((l) => (
