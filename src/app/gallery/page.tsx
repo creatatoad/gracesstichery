@@ -7,9 +7,9 @@ import { db } from "@/lib/db";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Our Work — Embroidery Gallery",
+  title: "Our Work: Embroidery Gallery",
   description:
-    "A look at custom embroidery stitched by Grace's Stitchery — monograms, florals, portraits, and one-of-a-kind pieces.",
+    "A look at custom embroidery stitched by Grace's Stitchery: monograms, florals, portraits, and one-of-a-kind pieces.",
 };
 
 export default async function GalleryPage() {
@@ -25,7 +25,7 @@ export default async function GalleryPage() {
       <main className="mx-auto max-w-6xl px-4 py-12">
         <h1 className="text-4xl italic">Our Work</h1>
         <p className="mt-2 max-w-2xl text-ink-soft">
-          Every piece below was stitched in our studio. Click anything to shop it — or use it
+          Every piece below was stitched in our studio. Click anything to shop it, or use it
           as inspiration for your own custom order.
         </p>
 

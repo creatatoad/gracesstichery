@@ -34,7 +34,7 @@ export default function CartPage() {
         return;
       }
       if (!res.ok) {
-        setError(data.error ?? "Checkout failed — please try again.");
+        setError(data.error ?? "Checkout failed. Please try again.");
         return;
       }
       if (data.clearCart) clear();
@@ -115,7 +115,7 @@ export default function CartPage() {
             {needsContact && (
               <div className="mt-6 rounded-2xl bg-parchment p-5">
                 <p className="text-sm text-ink-soft">
-                  Card payments aren&rsquo;t set up yet — leave your details and we&rsquo;ll
+                  Card payments aren&rsquo;t set up yet. Leave your details and we&rsquo;ll
                   email you an invoice to complete your order.
                 </p>
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
@@ -146,7 +146,7 @@ export default function CartPage() {
               {busy ? "One moment…" : needsContact ? "Place order" : "Checkout securely"}
             </button>
             <p className="mt-3 text-center text-xs text-ink-soft">
-              Made to order · Ships in 3–5 days · Stitching guaranteed for life
+              Made to order · Ships in 3 to 5 days · Stitching guaranteed for life
             </p>
           </>
         )}

@@ -57,7 +57,7 @@ export default async function AdminProductsPage() {
                 </td>
                 <td className="p-3 text-xs">
                   {p.channels.filter((c) => c.status === "live").map((c) => c.channel).join(", ") || (
-                    <span className="text-ink-soft">—</span>
+                    <span className="text-ink-soft">·</span>
                   )}
                 </td>
               </tr>
@@ -65,7 +65,7 @@ export default async function AdminProductsPage() {
             {products.length === 0 && (
               <tr>
                 <td colSpan={5} className="p-8 text-center text-ink-soft">
-                  No products yet — create your first one.
+                  No products yet. Create your first one.
                 </td>
               </tr>
             )}

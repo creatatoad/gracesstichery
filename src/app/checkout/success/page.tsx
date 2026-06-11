@@ -17,13 +17,13 @@ export default async function SuccessPage({
         <h1 className="text-4xl italic">Thank you! 🧵</h1>
         {invoice ? (
           <p className="mt-4 text-ink-soft">
-            Your order is recorded. We&rsquo;ll email you an invoice shortly — once it&rsquo;s
-            paid, we start stitching and ship within 3–5 days.
+            Your order is recorded. We&rsquo;ll email you an invoice shortly. Once it&rsquo;s
+            paid, we start stitching and ship within 3 to 5 days.
           </p>
         ) : (
           <p className="mt-4 text-ink-soft">
             Your payment went through and your order is in the queue. We start stitching
-            today and ship within 3–5 days. A receipt is on its way to your inbox.
+            today and ship within 3 to 5 days. A receipt is on its way to your inbox.
           </p>
         )}
         <div className="mt-8 flex justify-center gap-4">

@@ -9,12 +9,16 @@ const links = [
   { href: "/gallery", label: "Our Work" },
   { href: "/custom", label: "Custom Orders" },
   { href: "/about", label: "About" },
+  { href: "/faq", label: "FAQ" },
 ];
 
 export default function Header() {
   const { count } = useCart();
   return (
     <header className="sticky top-0 z-40 border-b border-ink/10 bg-cream/95 backdrop-blur">
+      <p className="bg-berry px-4 py-1.5 text-center text-xs font-semibold tracking-wide text-cream">
+        Free design proof on every custom order · Made to order, ships in 3 to 5 days
+      </p>
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2">
         <Link href="/" aria-label="Grace's Stitchery home">
           <Logo className="h-14 w-auto sm:h-16" />

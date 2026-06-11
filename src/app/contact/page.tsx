@@ -1,20 +1,26 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-export default function CustomOrderPage() {
+export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
     const form = new FormData(e.currentTarget);
+    const data = Object.fromEntries(form) as Record<string, string>;
     const res = await fetch("/api/custom-order", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(Object.fromEntries(form)),
+      body: JSON.stringify({
+        name: data.name,
+        email: data.email,
+        description: `[Contact message] ${data.message}`,
+      }),
     });
     setStatus(res.ok ? "done" : "error");
   }
@@ -23,20 +29,18 @@ export default function CustomOrderPage() {
     <>
       <Header />
       <main className="mx-auto max-w-3xl px-4 py-12">
-        <h1 className="text-4xl italic">Start a custom order</h1>
+        <h1 className="text-4xl italic">Get in touch</h1>
         <p className="mt-3 text-ink-soft">
-          Tell us what you&rsquo;re imagining: a name, a drawing, a pet, your grandmother&rsquo;s
-          handwriting. We&rsquo;ll reply within one business day with a{" "}
-          <strong className="text-ink">free design proof</strong>. You pay nothing until you
-          approve it.
+          Questions about an order, a deadline, a bulk run, or whether we can stitch
+          something unusual? (We probably can.) Send a note and we&rsquo;ll reply within one
+          business day.
         </p>
 
         {status === "done" ? (
           <div className="mt-10 rounded-2xl border-2 border-sage bg-white p-8 text-center">
-            <h2 className="text-2xl italic">Got it! 🧵</h2>
+            <h2 className="text-2xl italic">Message received! 🧵</h2>
             <p className="mt-2 text-ink-soft">
-              Your idea is in the queue. Watch your inbox. Your free proof is on its way
-              within one business day.
+              Thanks for reaching out. Watch your inbox; we reply within one business day.
             </p>
           </div>
         ) : (
@@ -52,35 +56,27 @@ export default function CustomOrderPage() {
               </div>
             </div>
             <div>
-              <label className="label" htmlFor="description">
-                What would you like us to make?
-              </label>
-              <textarea
-                id="description"
-                name="description"
-                required
-                rows={5}
-                className="input"
-                placeholder="e.g. A denim jacket with a big floral wreath on the back, with the words 'Wild at Heart' inside it. Mostly blues and creams."
-              />
-            </div>
-            <div>
-              <label className="label" htmlFor="budget">Rough budget (optional)</label>
-              <input id="budget" name="budget" className="input" placeholder="e.g. $50 to $100" />
+              <label className="label" htmlFor="message">How can we help?</label>
+              <textarea id="message" name="message" required rows={6} className="input" />
             </div>
             <button type="submit" disabled={status === "sending"} className="btn-primary disabled:opacity-60">
-              {status === "sending" ? "Sending…" : "Get my free proof"}
+              {status === "sending" ? "Sending…" : "Send message"}
             </button>
             {status === "error" && (
               <p className="text-sm font-semibold text-berry">
                 Something went wrong. Please try again.
               </p>
             )}
-            <p className="text-xs text-ink-soft">
-              No spam, no commitment. We only email you about this order.
-            </p>
           </form>
         )}
+
+        <div className="mt-14 rounded-2xl bg-parchment p-8 text-center">
+          <h2 className="text-2xl italic">Have a design in mind already?</h2>
+          <p className="mx-auto mt-2 max-w-xl text-ink-soft">
+            Skip the small talk and go straight to a free design proof.
+          </p>
+          <Link href="/custom" className="btn-primary mt-6">Start a custom order</Link>
+        </div>
       </main>
       <Footer />
     </>

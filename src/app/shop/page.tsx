@@ -3,33 +3,33 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
+import { CATEGORIES, getCategory } from "@/lib/categories";
 import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Shop Custom Embroidered Apparel",
+  title: "Shop Custom Embroidered Apparel & Gifts",
   description:
-    "Browse made-to-order embroidered hoodies, tees, hats, totes, baby clothes and more from Grace's Stitchery.",
+    "Browse made-to-order embroidered hoodies, tees, hats, totes, baby gifts, home goods and more from Grace's Stitchery. Real stitching, guaranteed for life.",
+  alternates: { canonical: "/shop" },
 };
 
-export default async function ShopPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ category?: string }>;
-}) {
-  const { category } = await searchParams;
+export default async function ShopPage() {
   const products = await db.product.findMany({
-    where: { status: "active", ...(category ? { category } : {}) },
+    where: { status: "active" },
     include: { images: { orderBy: { position: "asc" } } },
     orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
   });
 
-  const categories = await db.product.findMany({
-    where: { status: "active" },
-    select: { category: true },
-    distinct: ["category"],
-  });
+  // Categories present in the store, registry ones first.
+  const present = new Set(products.map((p) => p.category));
+  const chips = [
+    ...CATEGORIES.filter((c) => present.has(c.slug)),
+    ...[...present]
+      .filter((slug) => !getCategory(slug))
+      .map((slug) => ({ slug, short: slug.charAt(0).toUpperCase() + slug.slice(1) })),
+  ];
 
   return (
     <>
@@ -37,23 +37,20 @@ export default async function ShopPage({
       <main className="mx-auto max-w-6xl px-4 py-12">
         <h1 className="text-4xl italic">The Collection</h1>
         <p className="mt-2 text-ink-soft">
-          Everything is made to order — pick a piece, then tell us how to personalize it.
+          Everything is made to order. Pick a piece, then tell us how to personalize it.
         </p>
 
         <div className="mt-6 flex flex-wrap gap-2">
-          <Link
-            href="/shop"
-            className={`rounded-full px-4 py-1.5 text-sm font-semibold ${!category ? "bg-ink text-cream" : "border border-ink/20 hover:border-berry"}`}
-          >
+          <span className="rounded-full bg-ink px-4 py-1.5 text-sm font-semibold text-cream">
             All
-          </Link>
-          {categories.map((c) => (
+          </span>
+          {chips.map((c) => (
             <Link
-              key={c.category}
-              href={`/shop?category=${encodeURIComponent(c.category)}`}
-              className={`rounded-full px-4 py-1.5 text-sm font-semibold capitalize ${category === c.category ? "bg-ink text-cream" : "border border-ink/20 hover:border-berry"}`}
+              key={c.slug}
+              href={`/shop/${c.slug}`}
+              className="rounded-full border border-ink/20 px-4 py-1.5 text-sm font-semibold hover:border-berry"
             >
-              {c.category}
+              {c.short}
             </Link>
           ))}
         </div>
@@ -73,7 +70,7 @@ export default async function ShopPage({
 
         {products.length === 0 && (
           <p className="mt-12 text-center text-ink-soft">
-            Nothing here yet — check back soon, or{" "}
+            Nothing here yet. Check back soon, or{" "}
             <Link href="/custom" className="font-semibold text-berry hover:underline">
               request a custom piece
             </Link>
@@ -85,7 +82,7 @@ export default async function ShopPage({
           <h2 className="text-2xl italic">Want something that isn&rsquo;t listed?</h2>
           <p className="mx-auto mt-2 max-w-xl text-ink-soft">
             We embroider on whatever apparel you can think of. Send your idea and get a free
-            design proof — no payment until you love it.
+            design proof. No payment until you love it.
           </p>
           <Link href="/custom" className="btn-primary mt-6">Start a custom order</Link>
         </div>

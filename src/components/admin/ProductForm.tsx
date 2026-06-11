@@ -87,7 +87,7 @@ export default function ProductForm({ initial }: { initial?: ProductFormValues }
       setMessage({
         kind: "ok",
         text: data.ai
-          ? "Description and SEO written by AI — review and tweak before saving."
+          ? "Description and SEO written by AI. Review and tweak before saving."
           : "Filled in from the built-in template (set ANTHROPIC_API_KEY for AI copy).",
       });
     } catch (e) {
@@ -224,7 +224,7 @@ export default function ProductForm({ initial }: { initial?: ProductFormValues }
                 className="input"
                 value={aiNotes}
                 onChange={(e) => setAiNotes(e.target.value)}
-                placeholder="e.g. 50/50 fleece, sizes S–3XL, chain-stitch lettering"
+                placeholder="e.g. 50/50 fleece, sizes S-3XL, chain-stitch lettering"
               />
             </div>
             <button

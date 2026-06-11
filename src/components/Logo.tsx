@@ -15,7 +15,7 @@ export default function Logo({
   return (
     <img
       src={src[variant]}
-      alt="Grace's Stitchery — Custom Embroidery"
+      alt="Grace's Stitchery, Custom Embroidery"
       className={className}
     />
   );

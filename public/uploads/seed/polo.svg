@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <rect width="800" height="800" fill="#F3EDE3"/>
+  <rect x="40" y="40" width="720" height="720" fill="none" stroke="#C9A227" stroke-width="3" stroke-dasharray="10 12" opacity="0.5"/>
+  <path d="M275 235 q125 -55 250 0 l75 60 -50 62 -42 -30 v283 q-108 30 -216 0 v-283 l-42 30 -50 -62 z" fill="#3E5C76" opacity="0.95"/>
+  <path d="M362 232 l38 64 38 -64" stroke="#2C4258" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <circle cx="400" cy="312" r="5" fill="#2C4258"/><circle cx="400" cy="334" r="5" fill="#2C4258"/>
+  <circle cx="330" cy="400" r="34" fill="none" stroke="#F3EDE3" stroke-width="6"/>
+  <path d="M316 400 l10 10 20 -22" stroke="#F3EDE3" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <text x="400" y="700" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-style="italic" fill="#33302B">Business Logo Polo</text>
+</svg>
