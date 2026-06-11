@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AddToCart from "@/components/AddToCart";
 import ProductCard from "@/components/ProductCard";
+import { UpsellList } from "@/components/UpsellRow";
 import { categoryLabel, getCategory } from "@/lib/categories";
 import { db } from "@/lib/db";
 import { formatPrice } from "@/lib/money";
@@ -54,6 +55,19 @@ export default async function ProductPage({ params }: Props) {
         Number(b.category === product.category) - Number(a.category === product.category),
     )
     .slice(0, 3);
+
+  // Affordable add-ons shown under the buy box: cheaper companions to this piece.
+  const addOns = [...candidates]
+    .filter((p) => p.priceCents <= Math.min(product.priceCents, 3500))
+    .sort((a, b) => a.priceCents - b.priceCents)
+    .slice(0, 2)
+    .map((p) => ({
+      productId: p.id,
+      slug: p.slug,
+      name: p.name,
+      priceCents: p.priceCents,
+      image: p.images[0]?.url ?? "",
+    }));
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   const breadcrumbJsonLd = {
@@ -168,6 +182,8 @@ export default async function ProductPage({ params }: Props) {
                 </Link>
               </li>
             </ul>
+
+            <UpsellList title="Make it a matching set" products={addOns} />
           </div>
         </div>
 
