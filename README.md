@@ -30,9 +30,13 @@ Anthropic API.
 
 ```bash
 npm install
-npm run setup     # creates the SQLite db and seeds 6 sample products
 npm run dev       # http://localhost:3000
 ```
+
+`npm run dev` (and `npm run build` / `npm start`) automatically create the SQLite
+database and seed the sample products on first run, so a fresh clone just works.
+If you ever see `Error code 14: Unable to open the database file`, the db file is
+missing — run `npm run setup` (or just restart with `npm run dev`) to recreate it.
 
 Then create `.env.local` (see `.env.example` for everything) and set at minimum:
 
@@ -51,15 +55,16 @@ Optional but recommended:
 | `WEBHOOK_SYNC_URL` | Fan out to any other shop via Zapier / Make / n8n |
 | `NEXT_PUBLIC_SITE_URL` | Correct absolute URLs in sitemap, JSON-LD, and channel payloads |
 
-## Replacing the placeholder logo
+## Logo files
 
-The committed logo is a placeholder. Drop your real files over:
+The real brand artwork lives in `public/` under URL-safe names:
 
-- `public/logo.svg` — full horizontal logo (header + footer)
-- `public/logo-mark.svg` — square mark
-- `src/app/icon.svg` — favicon
+- `public/logo.svg` — full-color mark (header + footer, light backgrounds)
+- `public/logo-dark.svg` — single-color ink version
+- `public/logo-white.svg` — white version for dark backgrounds
+- `public/logo-mark.svg` — small square mark, `src/app/icon.svg` — favicon
 
-PNG/JPG work too — just update the file extension in `src/components/Logo.tsx`.
+`src/components/Logo.tsx` takes a `variant` prop (`color` | `dark` | `white`).
 
 ## Adding a product (the daily workflow)
 
@@ -92,9 +97,9 @@ PNG/JPG work too — just update the file extension in `src/components/Logo.tsx`
 Any Node host works (Railway, Render, Fly.io, a VPS):
 
 ```bash
-npm run build   # runs prisma generate + next build
+npm run build   # creates/migrates the db, generates the Prisma client, builds Next
 npm start
 ```
 
-Run `npx prisma db push && npx tsx prisma/seed.ts` once on first deploy. For Vercel,
-switch to Postgres + blob storage as noted above.
+Run `npx tsx prisma/seed.ts` once on first deploy if you want the sample products.
+For Vercel, switch to Postgres + blob storage as noted above.
